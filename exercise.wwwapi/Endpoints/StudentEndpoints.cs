@@ -14,11 +14,11 @@ namespace exercise.wwwapi.EndPoint
 
             student.MapGet("/getall", GetAllStudents);
 
-            student.MapGet("/getbyid/{id}", GetStudentByName);
+            student.MapGet("/getbyname/{name}", GetStudentByName);
 
-            student.MapPut("/update/{id}", UpdateStudent);
+            student.MapPut("/update/{name}", UpdateStudent);
 
-            student.MapDelete("/delete/{id}", DeleteStudent);
+            student.MapDelete("/delete/{name}", DeleteStudent);
 
         }
 
@@ -26,7 +26,8 @@ namespace exercise.wwwapi.EndPoint
         [ProducesResponseType(StatusCodes.Status201Created)]
         public static async Task<IResult> CreateStudent(IRepository<Student> repository, Student student)
         {
-            return TypedResults.Created(repository.Add(student).ToString());
+            repository.Add(student);
+            return TypedResults.Created("Created", student);
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -47,7 +48,7 @@ namespace exercise.wwwapi.EndPoint
         public static async Task<IResult> UpdateStudent(IRepository<Student> repository, string name, string update)
         {
             //return student
-            return TypedResults.Created(repository.Update(name, update).ToString());
+            return TypedResults.Created("Created", repository.Update(name, update));
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]

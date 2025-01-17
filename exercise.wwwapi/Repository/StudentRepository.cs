@@ -5,47 +5,46 @@ namespace exercise.wwwapi.Repository
 {
     public class StudentRepository : IRepository<Student>
     {
-        StudentCollection students;
+        //StudentCollection students;
 
         public StudentRepository()
         {
-            students = new StudentCollection();
+            //students = new StudentCollection();
         }
         public Student Add(Student entity)
         {
-            students.Add(entity);
+            StudentCollection.Add(entity);
             return entity;
         }
 
         public Student Delete(string firstName)
         {
-            Student entity = students.getAll().Find(x => (x.FirstName).Equals(firstName));
+            Student entity = StudentCollection.getAll().Find(x => (x.FirstName.ToLower()).Equals(firstName.ToLower()));
 
-            students.getAll().Remove(entity);
+            //StudentCollection.getAll().Remove(entity);
+            StudentCollection.Remove(entity);
 
             return entity;
         }
 
         public IEnumerable<Student> GetAll()
         {
-            return students.getAll();
+            return StudentCollection.getAll();
         }
 
         public Student GetByName(string firstName)
         {
-            Student entity = students.getAll().Find(x => (x.FirstName).Equals(firstName));
+            Student entity = StudentCollection.getAll().Find(x => (x.FirstName.ToLower()).Equals(firstName.ToLower()));
 
             return entity;
         }
 
         public Student Update(string firstName, string update)
         {
-            Student entity = students.getAll().Find(x => (x.FirstName).Equals(firstName));
+            Student entity = StudentCollection.getAll().Find(x => (x.FirstName.ToLower()).Equals(firstName.ToLower()));
 
-            string[] s = update.Split(" ");
 
-            entity.FirstName = s[0];
-            entity.LastName = s[1];
+            entity.FirstName = update;
 
             return entity;
         }
